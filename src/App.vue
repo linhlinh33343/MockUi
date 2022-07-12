@@ -1,26 +1,70 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <Header/>
+      <div class="wrapper">
+          <StepTitle/>
+          
+      </div>
+    </div>
+    
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Header from './components/Header.vue'
+import StepTitle from './components/StepTitle.vue'
+
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    StepTitle,
+    
+  
   }
 }
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root{
+    --heightHeader:64px;
+    --widthWrapper:560px;
+    --colorIcon:#6563ff;
+    --color-fill:#b2b1ff;
+    --backGround-primary:#f1f2f7;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+ 
 }
+.wrapper{
+    width:var(--widthWrapper);
+    margin: auto;
+    margin-top: calc(var(--heightHeader) + 48px);
+    margin-bottom: 56px;
+
+}
+.prevStep {
+    text-align: start;
+    cursor: pointer;
+}
+
+.prevStep span {
+    margin-left: 5px;
+    font-size: 16px;
+   
+}
+
+
 </style>
