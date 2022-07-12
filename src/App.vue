@@ -2,8 +2,7 @@
     <div>
       <Header/>
       <div class="wrapper">
-          <StepTitle/>
-          
+          <StepTitle />
       </div>
     </div>
     
@@ -13,18 +12,18 @@
 
 import Header from './components/Header.vue'
 import StepTitle from './components/StepTitle.vue'
-
-
-
+import { mapState } from 'vuex'
 export default {
   name: 'App',
   components: {
     Header,
     StepTitle,
-    
-  
+  },
+  computed:{
+    ...mapState(['currentStep'])
   }
 }
+
 </script>
 
 <style>

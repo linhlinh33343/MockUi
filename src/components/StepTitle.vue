@@ -1,15 +1,24 @@
 <template>
   <div>
     <div v-for="field in getListfield" :key="field">
-      <div class="stepList">
+      <div class="stepList" v-if="checkHideItem">
         <div class="prevStep" @click="prevStep()" v-if="currentStep != 1">
           <img src="../assets/arrowLeft.svg" alt="" />
           <span>雇用契約に戻る</span>
         </div>
         <span class="step-title">{{ field.title }}</span>
         <div class="step-icon">
-          <div class="step-icon__item" @change="test()" v-for="length in getListfieldsLength" :key="length" :class="[length <= currentStep ? 'active' : '']">
-            <SvgWrite v-if="length % 2 === 0" :activeStep="length <= currentStep" />
+          <div
+            class="step-icon__item"
+            @change="test()"
+            v-for="length in getListfieldsLength"
+            :key="length"
+            :class="[length <= currentStep ? 'active' : '']"
+          >
+            <SvgWrite
+              v-if="length % 2 === 0"
+              :activeStep="length <= currentStep"
+            />
             <SvgCheckVue v-else :activeStep="length <= currentStep" />
           </div>
         </div>
@@ -18,10 +27,10 @@
           <span>2021/09/01までご登録ください</span>
         </div>
       </div>
-      <WarningSub />
+      <WarningSub v-if="checkHideItem" />
       <ListInfo :field="field" />
-      <SupportVue />
-      <ButtonVue  />
+      <SupportVue v-if="checkHideItem" />
+      <ButtonVue v-if="checkHideItem" />
     </div>
   </div>
 </template>
@@ -35,10 +44,10 @@ import ButtonVue from "./ButtonSub.vue";
 import { mapState, mapGetters } from "vuex";
 export default {
   name: "StepTitleVue",
-  data(){
+  data() {
     return {
-       
-    }
+      checkHideItem: true,
+    };
   },
   components: {
     SvgCheckVue,
@@ -58,7 +67,7 @@ export default {
       this.$store.dispatch("prevStep");
     },
     // nameInputFile(name){
-   
+
     //   this.nameFile=name;
     // },
     // nameInputForm(name){
@@ -66,7 +75,18 @@ export default {
     //   console.log(this.nameitemForm);
     // }
   },
-  watch: {},
+  watch: {
+    currentStep() {
+      //
+      this.getListfield.forEach((field) => {
+        field.listInfo.forEach((item) => {
+          if (item.type == "confirmInfo") {
+            this.checkHideItem = false;
+          }
+        });
+      });
+    },
+  },
 };
 </script>
 
